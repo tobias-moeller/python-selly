@@ -1,6 +1,7 @@
 import json
 import base64
 import urllib.parse
+import urllib.error
 from urllib.request import Request, urlopen
 
 class SellyRequest(object):
@@ -42,8 +43,20 @@ class SellyRequest(object):
         auth = base64.standard_b64encode(prep_auth.encode('utf-8'))
         request.add_header("Authorization", "Basic %s" % auth.decode('utf-8'))
         request.add_header('content-type', 'application/json')
-        response = urlopen(request)
-        response_text = json.loads(response.read())
+
+        response = None
+        response_text = None
+        try:
+            response = urlopen(request)
+            response_text = response.read()
+        except urllib.error.HTTPError as e:
+            response_text = e.read()
+        except urllib.error.URLError as e:
+            return e.reason
+        try:
+            response_text = json.loads(response_text)
+        except Exception as e:
+            return response_text
         return response_text
 
     def get(self, path):
