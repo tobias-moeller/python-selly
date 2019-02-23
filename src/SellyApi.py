@@ -198,17 +198,173 @@ class SellyRequest(object):
         """
         return self.get("/products/%s" % product_id)
 
-    def create_product(self):
+    def create_product(self, title, description, stock, price, currency,
+                        info, product_type=2, bitcoin=False, ethereum=False, 
+                      paypal=False, stripe=False, litecoin=False, dash=False, 
+                      perfect_money=False, bitcoin_cash = False, ripple=False, 
+                      private=False, unlisted=False, seller_note="Thank you for your purchase",
+                      max_quantity=None, min_quantity=1, custom={}):
         """
         Create a new product https://developer.selly.gg/#create-a-product
+        @param title: title of product
+        @type title: string
+        @param description: description for product
+        @type decsripction: string
+        @param stock: The current stock count. Will return ∞ unless product_type is 2
+        @type stock: int
+        @param price: price for product
+        @type price: int
+        @param currency: Currency example EUR
+        @type currency: string
+        @param info: the item to be sold. product_type = 2, serials inside
+        @type info: string
+        @param product_type: product type
+        @type product_type: int
+        @param bitcoin: enable bitcoin as payment method
+        @type bitcoin: bool
+        @param ethereum: enable ethereum as payment method
+        @type ethereum: bool
+        @param paypal: enable paypal as payment method
+        @type paypal: bool
+        @param stripe: enable stripe as payment method
+        @type stripe: bool
+        @param litecoin: enable litecoin as payment method
+        @type litecoin: bool
+        @param dash: enable dash as payment method
+        @type dash: bool
+        @param perfect_money: enable perfectmoney as payment method
+        @type perfect_money: bool
+        @param bitcoin_cash: enable bitcoin cash as payment method
+        @type bitcoin_cash: bool
+        @param ripple: enable ripple as payment method
+        @type ripple: bool
+        @param private: set this as private product
+        @type private: bool
+        @param unlisted: set this as unlisted
+        @type unlisted: bool
+        @param seller_note: note to buyer after end purchase
+        @type seller_note: string
+        @param max_quantity: set max quantity
+        @type max_quantity: int
+        @param min_quantity: set min quantity
+        @type min_quantity: int
+        @param custom: The custom inputs that the customer can input
+        @type custom: object
+        @returns: response
+        @rtype: json
         """
-        pass
+        data = {
+                "product":{
+                    "title": title,
+                    "description": description,
+                    "stock": stock,
+                    "price": price,
+                    "currency": currency,
+                    "product_type": product_type,
+                    "info":info,
+                    "bitcoin": bitcoin,
+                    "paypal": paypal,
+                    "stripe": stripe,
+                    "litecoin": litecoin,
+                    "dash": dash,
+                    "ethereum": ethereum,
+                    "perfect_money": perfect_money,
+                    "bitcoin_cash": bitcoin_cash,
+                    "ripple": ripple,
+                    "private": private,
+                    "unlisted": unlisted,
+                    "seller_note": seller_note,
+                    "maximum_quantity": max_quantity,
+                    "minimum_quantity": min_quantity,
+                    "custom": custom
+                    }
+                }
+        return self.post("/products", data)
     
-    def update_product(self):
+    def update_product(self, product_id, title, description, stock, price, currency,
+                      product_serials, product_type=2, bitcoin=False, ethereum=False, 
+                      paypal=False, stripe=False, litecoin=False, dash=False, 
+                      perfect_money=False, bitcoin_cash = False, ripple=False, 
+                      private=False, unlisted=False, seller_note="Thank you for your purchase",
+                      max_quantity=None, min_quantity=1, custom={}):
         """
         Update existing product https://developer.selly.gg/#update-a-product
+        @param product_id: id of the product to update
+        @type product_id: string
+        @param title: title of product
+        @type title: string
+        @param description: description for product
+        @type decsripction: string
+        @param stock: The current stock count. Will return ∞ unless product_type is 2
+        @type stock: int
+        @param price: price for product
+        @type price: int
+        @param currency: Currency example EUR
+        @type currency: string
+        @param info: the item to be sold. product_type = 2, serials inside
+        @type info: string
+        @param product_type: product type
+        @type product_type: int
+        @param bitcoin: enable bitcoin as payment method
+        @type bitcoin: bool
+        @param ethereum: enable ethereum as payment method
+        @type ethereum: bool
+        @param paypal: enable paypal as payment method
+        @type paypal: bool
+        @param stripe: enable stripe as payment method
+        @type stripe: bool
+        @param litecoin: enable litecoin as payment method
+        @type litecoin: bool
+        @param dash: enable dash as payment method
+        @type dash: bool
+        @param perfect_money: enable perfectmoney as payment method
+        @type perfect_money: bool
+        @param bitcoin_cash: enable bitcoin cash as payment method
+        @type bitcoin_cash: bool
+        @param ripple: enable ripple as payment method
+        @type ripple: bool
+        @param private: set this as private product
+        @type private: bool
+        @param unlisted: set this as unlisted
+        @type unlisted: bool
+        @param seller_note: note to buyer after end purchase
+        @type seller_note: string
+        @param max_quantity: set max quantity
+        @type max_quantity: int
+        @param min_quantity: set min quantity
+        @type min_quantity: int
+        @param custom: The custom inputs that the customer can input
+        @type custom: object
+        @returns: response
+        @rtype: json
         """
-        pass
+        data = {
+                "product":{
+                    "title": title,
+                    "description": description,
+                    "stock": stock,
+                    "price": price,
+                    "currency": currency,
+                    "product_type": product_type,
+                    "info":product_serials,
+                    "bitcoin": bitcoin,
+                    "paypal": paypal,
+                    "stripe": stripe,
+                    "litecoin": litecoin,
+                    "dash": dash,
+                    "ethereum": ethereum,
+                    "perfect_money": perfect_money,
+                    "bitcoin_cash": bitcoin_cash,
+                    "ripple": ripple,
+                    "private": private,
+                    "unlisted": unlisted,
+                    "seller_note": seller_note,
+                    "maximum_quantity": max_quantity,
+                    "minimum_quantity": min_quantity,
+                    "custom": custom
+                    }
+                }
+        return self.put("/products/%s" % product_id, data)
 
     def delete_product(self, product_id):
         """
